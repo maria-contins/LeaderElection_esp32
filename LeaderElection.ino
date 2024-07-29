@@ -7,12 +7,13 @@
 #include <esp_now.h>
 #include <WiFi.h>
 
+// Leader
 bool leader = false;
 bool knowsleader = false;
 int id = 0;
 unsigned long lastMsgTime = 0;
 
-//MAC
+// MAC
 uint8_t broadcastAddress[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 uint8_t leaderAddress[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 
@@ -24,7 +25,7 @@ typedef struct message {
   int id;
 } message;
 
-message myData;
+message myMessage;
 
 void setup() {
   Serial.begin(115200);
@@ -115,7 +116,7 @@ void leaderElection() {
     delay(100);
   }
 
-  if (!knowsleader) { // TODO ??
+  if (!knowsleader) {
     Serial.println("No leader found, assuming leadership.");
     leader = true;
     message electedMsg;
